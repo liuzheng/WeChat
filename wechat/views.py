@@ -24,7 +24,8 @@ def Index(request):
         print "FromUserName:", a["AddMsgList[1][FromUserName]"]
         print "MsgId:", a["AddMsgList[1][MsgId]"]
         print "Content:", a["AddMsgList[1][Content]"]
-
+    finally:
+        pass
     # print "SKey:", a["SKey"]
     # print "imgURL: https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID="+a["AddMsgList[0][MsgId]"]
     print "================"

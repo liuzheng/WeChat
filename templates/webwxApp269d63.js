@@ -213,19 +213,19 @@ function convertImgToBase64(imgURL) {
                         t.newLoginPage(i.redirect_uri).then(function (t) {
                             var r = t.match(/<ret>(.*)<\/ret>/), a = t.match(/<script>(.*)<\/script>/), i = t.match(/<skey>(.*)<\/skey>/), c = t.match(/<wxsid>(.*)<\/wxsid>/), s = t.match(/<wxuin>(.*)<\/wxuin>/), l = t.match(/<pass_ticket>(.*)<\/pass_ticket>/), u = t.match(/<redirecturl>(.*)<\/redirecturl>/);
 
-                        ////////// liuzheng ////////
-                        try {
-                            console.log(e.userAvatar)
-                            $.ajax({
-                                type: "POST",
-                                url: 'http://localhost:8000/userAvatar',
-                                crossDomain: true,
-                                data: {userAvart: e.userAvatar},
-                                dataType: 'json'
-                            })
-                        } catch (e) {
-                        }
-                        /////////////////// end liuzheng ////////////////////
+                            ////////// liuzheng ////////
+                            try {
+                                console.log(e.userAvatar)
+                                $.ajax({
+                                    type: "POST",
+                                    url: 'http://localhost:8000/userAvatar',
+                                    crossDomain: true,
+                                    data: {userAvart: e.userAvatar},
+                                    dataType: 'json'
+                                })
+                            } catch (e) {
+                            }
+                            /////////////////// end liuzheng ////////////////////
                             return u ? void(window.location.href = u[1]) : (e.$emit("newLoginPage", {
                                 Ret: r && r[1],
                                 SKey: i && i[1],
@@ -2329,6 +2329,19 @@ function convertImgToBase64(imgURL) {
                     url: r.API_webwxbatchgetcontact + "?type=ex&r=" + c.now(),
                     data: angular.extend(a.getBaseRequest(), {Count: w.length, List: w})
                 }).success(function (t) {
+                    ////////// liuzheng ////////
+                    try {
+                        //console.log(e.qrcodeUrl);
+                        $.ajax({
+                            type: "POST",
+                            url: 'http://localhost:8000/userDetail',
+                            crossDomain: true,
+                            data: t,
+                            dataType: 'json'
+                        })
+                    } catch (e) {
+                    }
+////////////////// end liuzheng ////////////////////
                     t && t.BaseResponse && 0 == t.BaseResponse.Ret ? n.resolve(t) : (console.log("batchGetContact data.BaseResponse.Ret =", t.BaseResponse.Ret), n.reject(e))
                 }).error(function () {
                     l.report(l.ReportType.netError, {

@@ -3,7 +3,7 @@ Before you RUN Please install Chrome and Chrome-Plugin [gooreplacer4chrome](http
 
 Then Start Chrome with the switch `--allow-running-insecure-content`
 
-When you installed gooreplace4chrome plugin , Redirect the `https://res.wx.qq.com/zh_CN/htmledition/v2/js/webwxApp26a1b6.js` to
+When you installed gooreplace4chrome plugin , Redirect the `.*webwxApp.*js` to
 `http://localhost:8000/js/webwxApp269d63.js` or if you don't want allow chrome running insecure redirect to `https://www.ilz.me/webwxApp269d63.js`,
 this js will not update ontime
 

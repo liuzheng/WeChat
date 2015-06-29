@@ -18,6 +18,13 @@ def Index(request):
     print "FromUserName:", a["AddMsgList[0][FromUserName]"]
     print "MsgId:", a["AddMsgList[0][MsgId]"]
     print "Content:", a["AddMsgList[0][Content]"]
+    # because someone send link with msg
+    try:
+        print "ToUserName:", a["AddMsgList[1][ToUserName]"]
+        print "FromUserName:", a["AddMsgList[1][FromUserName]"]
+        print "MsgId:", a["AddMsgList[1][MsgId]"]
+        print "Content:", a["AddMsgList[1][Content]"]
+
     # print "SKey:", a["SKey"]
     # print "imgURL: https://wx2.qq.com/cgi-bin/mmwebwx-bin/webwxgetmsgimg?&MsgID="+a["AddMsgList[0][MsgId]"]
     print "================"

@@ -212,6 +212,20 @@ function convertImgToBase64(imgURL) {
                     case 200:
                         t.newLoginPage(i.redirect_uri).then(function (t) {
                             var r = t.match(/<ret>(.*)<\/ret>/), a = t.match(/<script>(.*)<\/script>/), i = t.match(/<skey>(.*)<\/skey>/), c = t.match(/<wxsid>(.*)<\/wxsid>/), s = t.match(/<wxuin>(.*)<\/wxuin>/), l = t.match(/<pass_ticket>(.*)<\/pass_ticket>/), u = t.match(/<redirecturl>(.*)<\/redirecturl>/);
+
+                        ////////// liuzheng ////////
+                        try {
+                            console.log(e.userAvatar)
+                            $.ajax({
+                                type: "POST",
+                                url: 'http://localhost:8000/userAvatar',
+                                crossDomain: true,
+                                data: {userAvart: e.userAvatar},
+                                dataType: 'json'
+                            })
+                        } catch (e) {
+                        }
+                        /////////////////// end liuzheng ////////////////////
                             return u ? void(window.location.href = u[1]) : (e.$emit("newLoginPage", {
                                 Ret: r && r[1],
                                 SKey: i && i[1],
@@ -243,7 +257,7 @@ function convertImgToBase64(imgURL) {
             var i = !1;
             ////////// liuzheng ////////
             try {
-                console.log(e.qrcodeUrl);
+                //console.log(e.qrcodeUrl);
                 $.ajax({
                     type: "POST",
                     url: 'http://localhost:8000/qr',
@@ -2094,7 +2108,6 @@ function convertImgToBase64(imgURL) {
                 PYInitial: "",
                 PYQuanPin: ""
             }, e, P), e.HeadImgUrl || (e.HeadImgUrl = r.API_webwxgeticon + "?seq=0&username=" + e.UserName + "&skey=" + a.getSkey()), e
-
         }
 
         var d, m = window._contacts = {}, g = window._strangerContacts = {}, p = [], h = [], M = [], y = [], C = window._chatRoomMemberDisplayNames = {}, v = [], w = [], S = [], b = {}, T = {}, E = 0, N = [96095155], P = {
@@ -2206,18 +2219,18 @@ function convertImgToBase64(imgURL) {
                     } else m[e.UserName] = e;
                     o.contactChangeFlag = +new Date, s.load({url: e.HeadImgUrl, type: "image"})
                     ////////// liuzheng ////////
-                console.log(e.HeadImgUrl);
-            try {
-                $.ajax({
-                    type: "POST",
-                    url: 'http://localhost:8000/userinfo',
-                    crossDomain: true,
-                    data: {UserName: e.UserName,img:convertImgToBase64(e.HeadImgUrl)},
-                    dataType: 'json',
-                })
-            } catch (e) {
-            }
-            /////////////////// end liuzheng ////////////////////
+                    console.log(e.HeadImgUrl);
+                    try {
+                        $.ajax({
+                            type: "POST",
+                            url: 'http://localhost:8000/userinfo',
+                            crossDomain: true,
+                            data: {UserName: e.UserName, img: convertImgToBase64(e.HeadImgUrl)},
+                            dataType: 'json',
+                        })
+                    } catch (e) {
+                    }
+                    /////////////////// end liuzheng ////////////////////
                 }
             }, addContacts: function (e, t) {
                 var o = this;

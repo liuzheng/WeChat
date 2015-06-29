@@ -27,4 +27,5 @@ urlpatterns += patterns('wechat.views',
                         url(r'^$', 'Index'),
                         url(r'^qr$', 'QR'),
                         url(r'^userinfo', 'userinfo'),
+                        url(r'^userAvatar', 'userAvatar'),
                         )

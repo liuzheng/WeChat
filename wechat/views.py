@@ -33,6 +33,13 @@ def QR(request):
 
 
 @csrf_exempt
+def userAvatar(request):
+    a = request.POST
+    print "userAvatar:", a['userAvatar']
+    return HttpResponse(a)
+
+
+@csrf_exempt
 def userinfo(request):
     a = request.POST
     print "UserName:", a['UserName']

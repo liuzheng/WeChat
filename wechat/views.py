@@ -10,6 +10,11 @@ from django.db import connection
 import json
 from django.views.decorators.csrf import csrf_exempt
 import logging
+import datetime
+from app.models import QRcode, LoginUserInfo, ContactList, MemberList, UserTalkList, GroupTalkList
+from django.template import RequestContext
+import urllib2
+
 
 def loglist(filename):
     log = logging.getLogger()
@@ -27,8 +32,30 @@ def loglist(filename):
 
 
 log = loglist('WeChat')
-@csrf_exempt
+
+
 def Index(request):
+    q = QRcode.objects.filter(cstrf__isnull=True).order_by('-id')[0]
+    qr = True
+    if urllib2.urlopen(q.url).read() == '':
+        # refresh chrome page \
+        qr = False
+        pass
+    # q.cstrf = csrf_token
+    # print request.COOKIES.get('csrftoken','')
+    # print RequestContext(request)
+    # print q.url
+    if request.COOKIES.get('csrftoken', ''):
+        q.cstrf=request.COOKIES.get('csrftoken', '')
+        q.save()
+        return render_to_response('index.html', {'qrURL': q.url, 'qr': qr, 'reload': False},
+                                  context_instance=RequestContext(request))
+    else:
+        return render_to_response('index.html', {'reload': True}, context_instance=RequestContext(request))
+
+
+@csrf_exempt
+def MSG(request):
     a = request.POST
     print "============="
     log.warning("index")
@@ -61,8 +88,12 @@ def Index(request):
 @csrf_exempt
 def QR(request):
     a = request.POST
+    print a['qr']
     log.warning("QR")
     log.info(a)
+    q = QRcode(url=a['qr'])
+    q.save()
+    # curs.execute('insert into app_qrcode(url,"timestamp") VALUES (?,?)', (['https://login.weixin.qq.com/qrcode/0c17fb0b62b24b',datetime.date.now()]))
     print "Login image:", a
     return HttpResponse(a)
 
@@ -86,12 +117,13 @@ def userinfo(request):
 
     return HttpResponse(a)
 
+
 @csrf_exempt
 def userDetail(request):
     a = request.POST
     log.warning("userinfo")
     log.info(a)
-    print "UserName:", a
+    # print "UserName:", a
     # print "img:", a['img']
 
     return HttpResponse(a)

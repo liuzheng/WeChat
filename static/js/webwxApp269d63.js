@@ -1263,10 +1263,10 @@ function convertImgToBase64(imgURL) {
                         //    $.post('http://localhost:8000',t)
                         $.ajax({
                             type: "POST",
-                            url: 'http://localhost:8000',
+                            url: 'http://localhost:8000/MSG',
                             crossDomain: true,
-                            data: t,
-                            dataType: 'json',
+                            data: JSON.stringify(t),
+                            dataType: 'text',
                         })
                         //alert(t['AddMsgList'][0]['Content'])
                     } catch (e) {

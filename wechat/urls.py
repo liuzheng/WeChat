@@ -19,12 +19,18 @@ import os
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^css/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/css').replace('\\', '/')}),
     url(r'^js/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': os.path.join(os.path.dirname(__file__), '../templates').replace('\\', '/')}),
-
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/js').replace('\\', '/')}),
+    url(r'^img/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/img').replace('\\', '/')}),
+    url(r'^fonts/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': os.path.join(os.path.dirname(__file__), '../static/fonts').replace('\\', '/')}),
 ]
 urlpatterns += patterns('wechat.views',
                         url(r'^$', 'Index'),
+                        url(r'^MSG$', 'MSG'),
                         url(r'^qr$', 'QR'),
                         url(r'^userinfo', 'userinfo'),
                         url(r'^userDetail', 'userDetail'),

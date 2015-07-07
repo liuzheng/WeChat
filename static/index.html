@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block body %}
+    <div class="main-content">
+        <div class="main-content-inner">
+            Hello World
+
+            {% csrf_token %}
+            {% if reload %}
+                <script>
+{#                    $(document).ready(function () {#}
+                        window.location.reload()
+{#                    });#}
+                </script>
+            {% else %}
+                {% if qr %}
+                    <img src="{{ qrURL }}"/>
+                {% else %}
+                    <p> QR code out of time</p>
+                {% endif %}
+            {% endif %}
+            {#            {% include "playbook.html" %}#}
+            {#            <div class="col-md-6">#}
+            {#                {% include "historyPL.html" %}#}
+            {#            </div>#}
+            {#           {% include "chatBox.html" %}#}
+        </div>
+    </div>
+{% endblock %}

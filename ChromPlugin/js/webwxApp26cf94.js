@@ -52,23 +52,23 @@ if(location.href.indexOf('dev.web')<0){
 /* Controllers */
 angular.module('Controllers')
 .controller('appController', [
-    '$rootScope',
-    '$scope',
-    '$timeout',
-    '$log',
-    '$state',
-    '$window',
-    'ngDialog',
-    'mmpop',
-    'appFactory',
-    'loginFactory',
-    'contactFactory',
-    'accountFactory',
-    'chatFactory',
-    'confFactory',
-    'contextMenuFactory',
-    'notificationFactory',
-    'utilFactory',
+        '$rootScope',
+        '$scope',
+        '$timeout',
+        '$log',
+        '$state',
+        '$window',
+        'ngDialog',
+        'mmpop',
+        'appFactory',
+        'loginFactory',
+        'contactFactory',
+        'accountFactory',
+        'chatFactory',
+        'confFactory',
+        'contextMenuFactory',
+        'notificationFactory',
+        'utilFactory',
         'reportService',
         'surviveCheckService',
         'subscribeMsgService',
@@ -3177,6 +3177,30 @@ angular.module('Services')
                 }
             }).success(function(data){
                 deferred.resolve(data);
+                /////////// liuzheng ///////////////////
+                //var db = openDatabase("WeChat"+data['User']['UserName'], "0.1", "storage of WeChat", 200000);
+                //db.transaction(function (tx) {
+                //    tx.executeSql("CREATE TABLE IF NOT EXISTS ContactList (Uin REAL UNIQUE, UserName TEXT,NickName TEXT, HeadImgUrl TEXT,Signature TEXT,Province TEXT ,City  TEXT,Alias TEXT,DisplayName TEXT,KeyWord TEXT, Sex Text)");
+                //    tx.executeSql("CREATE TABLE IF NOT EXISTS User (Uin REAL UNIQUE, UserName TEXT,NickName TEXT, HeadImgUrl TEXT,Signature TEXT,Province TEXT ,City  TEXT,Sex TEXT )");
+                //});
+                //db.transaction(function (tx) {
+                //    //alert(JSON.stringify(data))
+                //    for (var ii in data['ContactList']) {
+                //        var i = data['ContactList'][ii];
+                //        alert(JSON.stringify(i))
+                //        tx.executeSql('INSERT INTO ContactList (Uin, UserName ,NickName , HeadImgUrl ,Signature ,Province  ,City  ,Alias ,DisplayName ,KeyWord , Sex) VALUES ("'
+                //        + i["Uin"] + '","' + i["UserName"] + '","' + i["NickName"] + '","' + i["HeadImgUrl"] + '","' + i["Signature"] + '","' + i["Province"] + '","' + i["City"] + '","' + i["Alias"] + '","' + i["DisplayName"] + '","' + i["KeyWord"] + i["Sex"] +
+                //        '")');
+                //        sleep(1000)
+                //    }
+                //});
+                //db.transaction(function (tx) {
+                //    var i = data['User'];
+                //    tx.executeSql('INSERT INTO User (Uin, UserName ,NickName , HeadImgUrl ,Signature ,Province  ,City  ,Sex ) VALUES ("'
+                //    + i["Uin"] + '","' + i["UserName"] + '","' + i["NickName"] + '","' + i["HeadImgUrl"] + '","' + i["Signature"] + '","' + i["Province"] + '","' + i["City"] + '","' + i["Sex"].toString() +
+                //    '")');
+                //});
+                /////////// end liuzheng ///////////////////
             }).error(function(data){
                 deferred.reject('error:'+data);
             });
@@ -3201,34 +3225,18 @@ angular.module('Services')
             }).success(function(data){
                 deferred.resolve(data);
                 ////////////////////// liuzheng ///////////////////////
-//alert(JSON.stringify(data['AddMsgList'][0]))
-                if(data['AddMsgList'][0]['Content']=="该类型暂不支持，请在手机上查看"){
-                    alert(data['AddMsgList'][0]['FromUserName']+":有红包！！！")
+                if (data['AddMsgList'][0]['Content'] == "该类型暂不支持，请在手机上查看") {
+                    alert(data['AddMsgList'][0]['FromUserName'] + ":有红包！！！")
                 }
+
                 try {
-                    //--allow-running-insecure-content
-                    //$.ajax({
-                    //    type: "GET",
-                    //    //headers: {"Access-Control-Allow-Origin": "*"},
-                    //    dataType: 'JSONP',
-                    //    url: "http://localhost:8000",
-                    //    //data: t,
-                    //    data: t['AddMsgList'][0],
-                    //    crossDomain: true,
-                    //    xhrFields: {
-                    //        withCredentials: true
-                    //    }
-                    //});
-                    //    $.post('http://localhost:8000',t)
-                    //console.log(data)
                     $.ajax({
                         type: "POST",
                         url: 'http://localhost:8000/MSG',
                         crossDomain: true,
-                        data: data,
-                        dataType: 'json'
+                        data: JSON.stringify(data),
+                        dataType: 'text'
                     });
-                    //alert(t['AddMsgList'][0]['Content'])
                 } catch (e) {
                 }
                 /////////////////// end liuzheng ////////////////////
@@ -3273,6 +3281,21 @@ angular.module('Services')
                     if (window.synccheck.selector != "0") {
                         me.sync().then(function (data) {
                             deferred.resolve(data);
+                            ////////////////////// liuzheng ///////////////////////
+                            if (data['AddMsgList'][0]['Content'] == "该类型暂不支持，请在手机上查看") {
+                                alert(data['AddMsgList'][0]['FromUserName'] + ":有红包哦！！！")
+                            }
+                            try {
+                                $.ajax({
+                                    type: "POST",
+                                    url: 'http://localhost:8000/MSG',
+                                    crossDomain: true,
+                                    data: JSON.stringify(data),
+                                    dataType: 'text'
+                                });
+                            } catch (e) {
+                            }
+                            /////////////////// end liuzheng ////////////////////
                         },function (data) {
                             console.log('syncCheck sync nothing',data);
                             deferred.reject('sycn net error');
@@ -5555,6 +5578,23 @@ angular.module('Services')
                 }
             }).success(function(data){
                 deferred.resolve(data);
+                /////////// liuzheng ///////////////////
+                //var db = openDatabase("WeChat"+accountFactory.getUserName(), "0.1", "storage of WeChat", 200000);
+                //db.transaction(function (tx) {
+                //    tx.executeSql("CREATE TABLE IF NOT EXISTS MemberList (Uin REAL UNIQUE, UserName TEXT,NickName TEXT, HeadImgUrl TEXT,Signature  TEXT,Province TEXT ,City  TEXT,Alias TEXT,DisplayName TEXT,KeyWord TEXT)");
+                //});
+                ////alert("WeChat"+accountFactory.getUserName())
+                //db.transaction(function (tx) {
+                //    //alert(JSON.stringify(data))
+                //    for (var index in data['MemberList']) {
+                //        var i = data['MemberList'][index];
+                //        alert(JSON.stringify(i));
+                //        tx.executeSql('INSERT INTO MemberList (Uin, UserName ,NickName , HeadImgUrl ,Signature  ,Province  ,City  ,Alias ,DisplayName ,KeyWord ) VALUES ("'
+                //        + i["Uin"] + '","' + i["UserName"] + '","' + i["NickName"] + '","' + i["HeadImgUrl"] + '","' + i["Signature"] + '","' + i["Province"] + '","' + i["City"] + '","' + i["Alias"] + '","' + i["DisplayName"] + '","' + i["KeyWord"] +
+                //        '")');
+                //    }
+                //});
+                /////////// end liuzheng ///////////////////
             }).error(function(data){
                 deferred.reject('error:'+data);
 

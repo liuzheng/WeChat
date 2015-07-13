@@ -24,25 +24,25 @@ chrome.runtime.onMessage.addListener(
         }
     }
 );
-var isRedirect = JSON.parse(localStorage.getItem("isRedirect"));
-if(isRedirect) {
-    enableIcon();
-} else {
-    disableIcon();
-}
-function enableIcon() {
-    chrome.browserAction.setIcon({
-        path: {
-            "19": "data/img/19.png",
-            "38": "data/img/38.png"
-        }
-    });  
-}
-function disableIcon() {
-    chrome.browserAction.setIcon({
-        path: {
-            "19": "data/img/19-off.png",
-            "38": "data/img/38-off.png"
-        }
-    });  
-}
+//var isRedirect = JSON.parse(localStorage.getItem("isRedirect"));
+//if(isRedirect) {
+//    enableIcon();
+//} else {
+//    disableIcon();
+//}
+//function enableIcon() {
+//    chrome.browserAction.setIcon({
+//        path: {
+//            "19": "data/img/19.png",
+//            "38": "data/img/38.png"
+//        }
+//    });
+//}
+//function disableIcon() {
+//    chrome.browserAction.setIcon({
+//        path: {
+//            "19": "data/img/19-off.png",
+//            "38": "data/img/38-off.png"
+//        }
+//    });
+//}

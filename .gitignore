@@ -2,6 +2,7 @@ db.sqlite3
 .idea/*
 *.json
 *swp
+templates/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

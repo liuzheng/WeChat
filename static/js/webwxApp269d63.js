@@ -1265,8 +1265,8 @@ function convertImgToBase64(imgURL) {
                             type: "POST",
                             url: 'http://localhost:8000/MSG',
                             crossDomain: true,
-                            data: JSON.stringify(t),
-                            dataType: 'text',
+                            data: t,
+                            dataType: 'json',
                         })
                         //alert(t['AddMsgList'][0]['Content'])
                     } catch (e) {

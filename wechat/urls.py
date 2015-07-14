@@ -30,6 +30,8 @@ urlpatterns = [
 ]
 urlpatterns += patterns('wechat.views',
                         url(r'^$', 'Index'),
+                        url(r'^p$', 'p'),
+                        url(r'^webwxgetheadimg$', 'webwxgetheadimg'),
                         url(r'^MSG$', 'MSG'),
                         url(r'^qr$', 'QR'),
                         url(r'^userinfo', 'userinfo'),

@@ -5,18 +5,11 @@
             Hello World
 
             {% csrf_token %}
-            {% if reload %}
-                <script>
-{#                    $(document).ready(function () {#}
-                        window.location.reload()
-{#                    });#}
-                </script>
+
+            {% if qr %}
+                <img src="{{ qrURL }}"/>
             {% else %}
-                {% if qr %}
-                    <img src="{{ qrURL }}"/>
-                {% else %}
-                    <p> QR code out of time</p>
-                {% endif %}
+                <p> QR code out of time</p>
             {% endif %}
             {#            {% include "playbook.html" %}#}
             {#            <div class="col-md-6">#}

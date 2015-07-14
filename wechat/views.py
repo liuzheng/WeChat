@@ -33,7 +33,8 @@ def loglist(filename):
 
 log = loglist('WeChat')
 
-
+def p(request):
+    return  render_to_response("p.html")
 def Index(request):
     q = QRcode.objects.filter(cstrf__isnull=True).order_by('-id')[0]
     qr = True
@@ -48,18 +49,24 @@ def Index(request):
     if request.COOKIES.get('csrftoken', ''):
         q.cstrf=request.COOKIES.get('csrftoken', '')
         q.save()
-        return render_to_response('index.html', {'qrURL': q.url, 'qr': qr, 'reload': False},
+        return render_to_response('index.html', {'qrURL': q.url, 'qr': qr},
                                   context_instance=RequestContext(request))
     else:
-        return render_to_response('index.html', {'reload': True}, context_instance=RequestContext(request))
+        return render_to_response('csrftoken.html', context_instance=RequestContext(request))
 
+
+@csrf_exempt
+def webwxgetheadimg(request):
+    print request.GET
+    return True
 
 @csrf_exempt
 def MSG(request):
     a = request.POST
     print "============="
-    log.warning("index")
+    log.warning("MSG")
     log.info(a)
+    print a
     try:
         tousername = a["AddMsgList[0][ToUserName]"]
         print "ToUserName:", a["AddMsgList[0][ToUserName]"]

@@ -1,15 +1,79 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="app">
 <head>
     <meta charset="UTF-8">
     <title>Base64 Encode & Decode</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
     <script src="js/jquery-2.0.0.min.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <style>
+        div.switch-wrapper {
+            display: block;
+            overflow: hidden;
+            width: 90px;
+            background: transparent;
+            border: 2px solid #999999;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        div.switch-wrapper > input.switch-input {
+            display: none;
+        }
+
+        div.switch-wrapper > label.switch-label {
+            position: relative;
+            display: block;
+            text-align: left;
+            padding-left: 20px;
+            cursor: pointer;
+            background: #EEE;
+            color: #999;
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            /*transition*/
+            -webkit-transition: left 0.3s ease-in 0s;
+            -moz-transition: left 0.3s ease-in 0s;
+            -o-transition: left 0.3s ease-in 0s;
+            transition: left 0.3s ease-in 0s;
+            margin-bottom: 0 !important;
+        }
+
+        div.switch-wrapper > label.switch-label:after {
+            position: absolute;
+            display: block;
+            text-align: right;
+            padding-right: 20px;
+            width: 100%;
+            height: 100%;
+            left: 100%;
+            top: 0;
+            background: #2FCCFF;
+            color: #fff;
+            content: "ON \2611";
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        div.switch-wrapper > input.switch-input:checked + label.switch-label {
+            left: -100%;
+        }
+
+    </style>
 </head>
-<body style="width:750px;height: 1200px" class="container" ng-controller="WeChat">
-
-Hello
-
+<!--body style="width:750px;height: 1200px" ng-controller="Ctrl"-->
+<body ng-controller="Ctrl">
+<div class="switch-wrapper">
+    <input type="checkbox" id="wxSwitch" class="switch-input" ng-click="Switch('wxSwitch')"/>
+    <label class="switch-label" for="wxSwitch">&#9746; OFF</label>
+</div>
 </body>
 </html>

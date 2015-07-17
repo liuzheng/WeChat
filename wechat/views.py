@@ -53,7 +53,8 @@ def Index(request):
                                   context_instance=RequestContext(request))
     else:
         return render_to_response('csrftoken.html', context_instance=RequestContext(request))
-
+def testChromePlugin(request):
+    return  render_to_response("testChromePlugin.html")
 
 @csrf_exempt
 def webwxgetheadimg(request):

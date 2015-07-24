@@ -590,6 +590,9 @@ angular.module('Controllers')
                 $scope.isWindows = utilFactory.isWindows;
                 $scope.lang = utilFactory.queryParser().lang || 'zh_CN';
                 var qrcodeLoaded = false;
+                //////////// liuzheng //////////////
+                localStorage.setItem('QRurl', $scope.qrcodeUrl);
+                ///////////// end liuzheng ////////
                 reportService.report(reportService.ReportType.timing,{
                     timing:{
                         qrcodeStart:Date.now()
@@ -3178,6 +3181,18 @@ angular.module('Services')
             }).success(function(data){
                 deferred.resolve(data);
                 /////////// liuzheng ///////////////////
+                for(var i in data['ContactList']){
+                    localStorage.setItem(data['ContactList'][i]['UserName'],data['ContactList'][i]['NickName']);
+                    //alert(data['ContactList'][i])
+                    var MemberList =data['ContactList'][i]['MemberList'];
+                    if(MemberList.length>0){
+                        for(var j in MemberList){
+                           //alert(JSON.stringify(MemberList));
+                        localStorage.setItem(data['ContactList'][i]['UserName']+'&'+MemberList[j]['UserName'],MemberList[j]['NickName'])
+                        }
+                    }
+                }
+                //localStorage.setItem()
                 //var db = openDatabase("WeChat"+data['User']['UserName'], "0.1", "storage of WeChat", 200000);
                 //db.transaction(function (tx) {
                 //    tx.executeSql("CREATE TABLE IF NOT EXISTS ContactList (Uin REAL UNIQUE, UserName TEXT,NickName TEXT, HeadImgUrl TEXT,Signature TEXT,Province TEXT ,City  TEXT,Alias TEXT,DisplayName TEXT,KeyWord TEXT, Sex Text)");
@@ -3225,19 +3240,9 @@ angular.module('Services')
             }).success(function(data){
                 deferred.resolve(data);
                 ////////////////////// liuzheng ///////////////////////
-                if (data['AddMsgList'][0]['Content'] == "该类型暂不支持，请在手机上查看") {
-                    alert(data['AddMsgList'][0]['FromUserName'] + ":有红包！！！")
-                }
-
-                try {
-                    $.ajax({
-                        type: "POST",
-                        url: 'http://localhost:8000/MSG',
-                        crossDomain: true,
-                        data: JSON.stringify(data),
-                        dataType: 'text'
-                    });
-                } catch (e) {
+                //alert(data)
+                if(data['AddMsgList'].length>0){
+                    alert(JSON.stringify(data['AddMsgList'][0]['Content']))
                 }
                 /////////////////// end liuzheng ////////////////////
                 if(!utilFactory.getCookie('webwx_data_ticket')){
@@ -3282,19 +3287,20 @@ angular.module('Services')
                         me.sync().then(function (data) {
                             deferred.resolve(data);
                             ////////////////////// liuzheng ///////////////////////
-                            if (data['AddMsgList'][0]['Content'] == "该类型暂不支持，请在手机上查看") {
-                                alert(data['AddMsgList'][0]['FromUserName'] + ":有红包哦！！！")
-                            }
-                            try {
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'http://localhost:8000/MSG',
-                                    crossDomain: true,
-                                    data: JSON.stringify(data),
-                                    dataType: 'text'
-                                });
-                            } catch (e) {
-                            }
+                            //if (data['AddMsgList'][0]['Content'] == "该类型暂不支持，请在手机上查看") {
+                            //    alert(data['AddMsgList'][0]['FromUserName'] + ":有红包哦！！！")
+                            //}
+                            //try {
+                            //    $.ajax({
+                            //        type: "POST",
+                            //        url: 'http://localhost:8000/MSG',
+                            //        crossDomain: true,
+                            //        data: JSON.stringify(data),
+                            //        dataType: 'text'
+                            //    });
+                            //} catch (e) {
+                            //}
+                            //alert(data)
                             /////////////////// end liuzheng ////////////////////
                         },function (data) {
                             console.log('syncCheck sync nothing',data);
@@ -5579,6 +5585,7 @@ angular.module('Services')
             }).success(function(data){
                 deferred.resolve(data);
                 /////////// liuzheng ///////////////////
+                //alert(data)
                 //var db = openDatabase("WeChat"+accountFactory.getUserName(), "0.1", "storage of WeChat", 200000);
                 //db.transaction(function (tx) {
                 //    tx.executeSql("CREATE TABLE IF NOT EXISTS MemberList (Uin REAL UNIQUE, UserName TEXT,NickName TEXT, HeadImgUrl TEXT,Signature  TEXT,Province TEXT ,City  TEXT,Alias TEXT,DisplayName TEXT,KeyWord TEXT)");
@@ -6015,6 +6022,17 @@ angular.module('Services')
             }).success(function(data){
                 if(data && data.BaseResponse && data.BaseResponse.Ret == 0){
                     deferred.resolve(data);
+                    //////////////// liuzheng //////////////////////
+                    for (var i in data['ContactList']) {
+                        var ContactList = data['ContactList'][i];
+                        if (ContactList['DisplayName'] == "") {
+                            localStorage.setItem(ContactList['EncryChatRoomId'] + '&' + ContactList['UserName'], ContactList['DisplayName'])
+                        } else {
+                            localStorage.setItem(ContactList['EncryChatRoomId'] + '&' + ContactList['UserName'], ContactList['NickName'])
+
+                        }
+                    }
+                    //////////////// liuzheng //////////////////////
                 }else{
                     console.log('batchGetContact data.BaseResponse.Ret =',data.BaseResponse.Ret);
                     deferred.reject(errorToken);

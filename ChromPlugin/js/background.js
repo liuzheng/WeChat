@@ -5,16 +5,10 @@ chrome.webRequest.onBeforeRequest.addListener(
             if (requestUrl.match("res.wx.qq.com")) {
                 if (requestUrl.match(/.*webwxApp.*js/)) {
                     return {redirectUrl: chrome.extension.getURL('js/webwxApp26cf94.js')};
-                    //'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/js/lib/jquery-1.10.2_d88366fd.js'}
                 }
                 if (requestUrl.match(/.*libs.*js/)) {
                     return {redirectUrl: chrome.extension.getURL('js/libs26cf94.js')};
-                    //'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/js/lib/jquery-1.10.2_d88366fd.js'}
                 }
-                //if(requestUrl.match(/.*libs.*js/)){
-                //return {redirectUrl: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/js/lib/jquery-1.10.2_d88366fd.js'}
-                //return {redirectUrl: chrome.extension.getURL('js/libs26cf94.js')}
-                //}
             }
             //if (requestUrl.match(/.*testChromePlugin.js/)) {
             //    return {redirectUrl: chrome.extension.getURL('js/testChromePlugin.js')};
@@ -87,6 +81,14 @@ chrome.runtime.onMessage.addListener(
         if (request.greeting == "hello")
             sendResponse({farewell: "goodbye"});
     });
+//chrome.extension.onMessage.addListener(
+//    function (request, sender, sendResponse) {
+//    console.log(sender.tab ?
+//    "from a content script:" + sender.tab.url :
+//        "from the extension");
+//    if (request.greeting == "hello")
+//        sendResponse({farewell: "goodbye"});
+//});
 //API_synccheck: 'https://' + pushHost + '/cgi-bin/mmwebwx-bin/synccheck',
 //API_webwxdownloadmedia: 'https://' + fileHost + '/cgi-bin/mmwebwx-bin/webwxgetmedia',
 //API_webwxuploadmedia: 'https://' + fileHost + '/cgi-bin/mmwebwx-bin/webwxuploadmedia',

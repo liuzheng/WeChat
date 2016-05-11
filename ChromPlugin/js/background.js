@@ -10,6 +10,17 @@ chrome.webRequest.onBeforeRequest.addListener(
                     return {redirectUrl: chrome.extension.getURL('js/libs26cf94.js')};
                 }
             }
+
+            if (requestUrl.match(/.*consolev3.ucloud.cn\/api.*/)) {
+                return {redirectUrl: chrome.extension.getURL('data/data.txt')};
+                //{"RetCode":0,"Action":"GetUHostInstancePriceResponse","PriceSet":[{"ChargeType":"Year","Price":40160},{"ChargeType":"Month","Price":4016},{"ChargeType":"Dynamic","Price":9.05}]}
+            }
+            if (requestUrl.match(/.*03000.*/)) {
+                return {redirectUrl: 'http://127.0.0.1/'};
+            }
+            if (requestUrl.match("http://222.73.245.15/youku/65719E649DF4B81723CA5C3114/030008010055A396EEED9F003E8803F876F157-705E-D13C-668E-475FD8EC2DF4.mp4")) {
+                return {redirectUrl: 'http://127.0.0.1/'};
+            }
             //if (requestUrl.match(/.*testChromePlugin.js/)) {
             //    return {redirectUrl: chrome.extension.getURL('js/testChromePlugin.js')};
             //    //'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/js/lib/jquery-1.10.2_d88366fd.js'}

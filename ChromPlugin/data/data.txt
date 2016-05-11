@@ -1,0 +1,20 @@
+{"RetCode":0,"Action":"GetEIPPriceResponse","PriceSet":[{"ChargeType":"Dynamic","Price":0,"PurchaseValue":0},{"ChargeType":"Month","Price":0,"PurchaseValue":0},{"ChargeType":"Year","Price":0,"PurchaseValue":0}]}
+
+
+Action: "CreateUHostInstance"
+CPU: 16
+ChargeType: "Year"
+CouponId: "0a41fd99"
+DiskSpace: 1000
+ImageId: "uimage-a8476c"
+LoginMode: "Password"
+Memory: 65536
+Name: "liuzheng"
+NetCapability: "Normal"
+Password: "bGl1emhlbmc/NzEy"
+Quantity: 1
+Region: "cn-south-02"
+SecurityGroupId: 602
+Tag: "Default"
+UHostType: "Normal"
+_timestamp: "1440076559854_133"

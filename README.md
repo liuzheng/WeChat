@@ -1,3 +1,4 @@
+# I already forgot this project, let it go
 # WeChat
 Before you RUN Please install Chrome and Chrome-Plugin [gooreplacer4chrome](https://github.com/liuzheng/gooreplacer4chrome)
 

@@ -1,5 +1,5 @@
 # WeChat
-Before you RUN Please install Chrome and Chrome-Plugin [gooreplacer4chrome](https://github.com/liuzheng712/gooreplacer4chrome)
+Before you RUN Please install Chrome and Chrome-Plugin [gooreplacer4chrome](https://github.com/liuzheng/gooreplacer4chrome)
 
 Then Start Chrome with the switch `--allow-running-insecure-content`
 
